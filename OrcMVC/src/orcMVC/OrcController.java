@@ -10,14 +10,19 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class OrcController {
-	OrcModel m = new OrcModel();
-	public static void main(String[] args) {
+	
+	public OrcModel m;
+	public OrcView v;
+	
+	public OrcController(OrcModel m, OrcView v) {
 		/*
 		 * CARDINAL DIRECTION TO FRAME ORIENTATION North = Top of the frame
 		 * South = Bottom of the frame East = Right of the frame West = Left of
 		 * the frame
 		 */
-		OrcView v = new OrcView();
+		this.m = m;
+		this.v = v;
+		
 		int xInit = 0;
 		int yInit = 0;
 
@@ -28,14 +33,6 @@ public class OrcController {
 		v.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.frame.setSize(OrcModel.frameWidth, OrcModel.frameHeight);
 		v.frame.setVisible(true);
-		for (int i = 0; i < 1000; i++) {
-			v.frame.repaint();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public static BufferedImage createImage(OrcModel.orcAction specifiedAction) { // orcAction is an enum corresponding to a png file
@@ -44,6 +41,7 @@ public class OrcController {
 		switch (specifiedAction) {
 		case FORWARD_NORTHEAST:
 			file = "images/orc/orc_forward_northeast.png";
+			//System.out.println(specificedAction);
 			break;
 		case FORWARD_NORTHWEST:
 			file = "images/orc/orc_forward_northwest.png";

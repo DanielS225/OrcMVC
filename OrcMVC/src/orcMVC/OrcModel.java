@@ -22,30 +22,19 @@ public class OrcModel {
 	final static int xOffset = 30;
 	final static int yOffset = 30;
 	
-	final int frameCount = 10;
+	final static int frameCount = 10;
 
 	orcAction currentAction;
 	
 	public OrcModel() {
 		picNum = 0;
+		currentAction = orcAction.FORWARD_SOUTHEAST;
+		xloc = 0;
+		yloc = 0;
 	}
 	
     
     public enum orcAction {
     	FORWARD_NORTHEAST, FORWARD_NORTHWEST, FORWARD_SOUTHEAST, FORWARD_SOUTHWEST, FORWARD_NORTH, FORWARD_SOUTH, FORWARD_EAST, FORWARD_WEST
-    }
-    
-    public void images(OrcModel m, int xStart, int yStart, OrcModel.orcAction initialAction){ //original x location, y location, and initial action
-		m.currentAction = initialAction;
-		m.xloc = xStart;
-		m.yloc = yStart;
-		BufferedImage img;
-		m.pics = new BufferedImage[orcAction.values().length][m.frameCount];
-		for (OrcModel.orcAction a : orcAction.values()) {
-			for (int i = 0; i < m.frameCount; i++) {
-				img = OrcController.createImage(a);
-				m.pics[a.ordinal()][i] = img.getSubimage(imgWidth * i, 0, imgWidth, imgHeight);
-			}
-		}
     }
 }
