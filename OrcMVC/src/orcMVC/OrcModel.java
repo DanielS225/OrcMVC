@@ -37,4 +37,34 @@ public class OrcModel {
     public enum orcAction {
     	FORWARD_NORTHEAST, FORWARD_NORTHWEST, FORWARD_SOUTHEAST, FORWARD_SOUTHWEST, FORWARD_NORTH, FORWARD_SOUTH, FORWARD_EAST, FORWARD_WEST
     }
+    
+    public int incrementX(){
+    	xloc += xIncr;
+    	return xloc;
+    }
+    public int decrementX(){
+    	xloc -= xIncr;
+    	return xloc;
+    }
+    public int incrementY(){
+    	yloc += yIncr;
+    	return yloc;
+    }
+    public int decrementY(){
+    	yloc -=yIncr;
+    	return yloc;
+    }
+    
+    public int calcEastBound(){
+    	return frameWidth - imgWidth;
+    }
+    public int calcWestBound(){
+    	return 0 - xOffset;
+    }
+    public int calcSouthBound(){
+    	return frameHeight - imgHeight - yOffset;
+    }
+    public int calcNorthBound(){
+    	return 0 - yOffset;
+    }
 }

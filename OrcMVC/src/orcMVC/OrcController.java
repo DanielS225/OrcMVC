@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+
+
 public class OrcController {
 	
 	public OrcModel m;
@@ -73,5 +75,64 @@ public class OrcController {
 		}
 		return null;
 	}
+	
+	public void updateAction(OrcModel.orcAction currentAction){
+		
+		if(m.xloc >= m.calcEastBound()){// East boundary switching direction
+    		switch(currentAction){// Redirection
+	    		case FORWARD_EAST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_WEST;
+	    			break;
+	    		case FORWARD_NORTHEAST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHWEST;
+	    			break;
+	    		case FORWARD_SOUTHEAST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHWEST;
+	    			break;
+    		}
+    	}
+    	else if (m.xloc < m.calcWestBound()){//West boundary switching direction, offset to account for blank space on image.
+    		
+    		switch(m.currentAction){
+	    		case FORWARD_WEST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_EAST;
+	    			break;
+	    		case FORWARD_NORTHWEST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHEAST;
+	    			break;
+	    		case FORWARD_SOUTHWEST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHEAST;
+	    			break;
+	    	}
+    	}
+    	else if (m.yloc >= m.calcSouthBound()){// South boundary switching direction, offset to account for blank space on image.
+    		
+    		switch(m.currentAction){
+	    		case FORWARD_SOUTH:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTH;
+	    			break;
+	    		case FORWARD_SOUTHEAST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHEAST;
+	    			break;
+	    		case FORWARD_SOUTHWEST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHWEST;
+	    			break;
+	    	}
+    	}
+    	else if (m.yloc < m.calcNorthBound()){// North boundary switching direction, offset to account for blank space on image.
+    		
+    		switch(m.currentAction){
+	    		case FORWARD_NORTH:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTH;
+	    			break;
+	    		case FORWARD_NORTHEAST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHEAST;
+	    			break;
+	    		case FORWARD_NORTHWEST:
+	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHWEST;
+	    			break;
+	    			}
+    }
+}
 }
 		

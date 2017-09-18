@@ -71,94 +71,37 @@ public class Animation extends JPanel{
     	 * East = Right of the frame
     	 * West = Left of the frame
     	 */
-    	if(m.xloc >= (m.frameWidth - m.imgWidth)){// East boundary switching direction
-    		g.drawImage(m.pics[m.currentAction.ordinal()][m.picNum], m.xloc, m.yloc, Color.gray, this);
-    		
-    		
-    		switch(m.currentAction){// Redirection
-	    		case FORWARD_EAST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_WEST;
-	    			break;
-	    		case FORWARD_NORTHEAST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHWEST;
-	    			break;
-	    		case FORWARD_SOUTHEAST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHWEST;
-	    			break;
-    		}
-    	}
-    	else if (m.xloc < - m.xOffset){//West boundary switching direction, offset to account for blank space on image.
-    		g.drawImage(m.pics[m.currentAction.ordinal()][m.picNum], m.xloc, m.yloc, Color.gray, this);
-    		switch(m.currentAction){
-	    		case FORWARD_WEST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_EAST;
-	    			break;
-	    		case FORWARD_NORTHWEST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHEAST;
-	    			break;
-	    		case FORWARD_SOUTHWEST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHEAST;
-	    			break;
-	    	}
-    	}
-    	else if (m.yloc >= (m.frameHeight - m.imgHeight - m.yOffset)){// South boundary switching direction, offset to account for blank space on image.
-    		g.drawImage(m.pics[m.currentAction.ordinal()][m.picNum], m.xloc, m.yloc, Color.gray, this);
-    		switch(m.currentAction){
-	    		case FORWARD_SOUTH:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTH;
-	    			break;
-	    		case FORWARD_SOUTHEAST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHEAST;
-	    			break;
-	    		case FORWARD_SOUTHWEST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_NORTHWEST;
-	    			break;
-	    	}
-    	}
-    	else if (m.yloc < - m.yOffset){// North boundary switching direction, offset to account for blank space on image.
-    		g.drawImage(m.pics[m.currentAction.ordinal()][m.picNum], m.xloc, m.yloc, Color.gray, this);
-    		switch(m.currentAction){
-	    		case FORWARD_NORTH:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTH;
-	    			break;
-	    		case FORWARD_NORTHEAST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHEAST;
-	    			break;
-	    		case FORWARD_NORTHWEST:
-	    			m.currentAction = OrcModel.orcAction.FORWARD_SOUTHWEST;
-	    			break;
-	    			}
-    }
+		g.drawImage(m.pics[m.currentAction.ordinal()][m.picNum], m.xloc, m.yloc, Color.gray, this);
     	m.picNum = (m.picNum + 1) % m.frameCount;
     	
     	 switch(m.currentAction){// Increments coordinates by direction
 	 		case FORWARD_NORTH:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTH.ordinal()][m.picNum], m.xloc, m.yloc-=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTH.ordinal()][m.picNum], m.xloc, m.decrementY(), Color.gray, this);
 	 			break;
 	 		case FORWARD_SOUTH:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTH.ordinal()][m.picNum], m.xloc, m.yloc+=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTH.ordinal()][m.picNum], m.xloc, m.incrementY(), Color.gray, this);
 	 			break;
 	 		case FORWARD_EAST:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_EAST.ordinal()][m.picNum], m.xloc+=m.xIncr, m.yloc, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_EAST.ordinal()][m.picNum], m.incrementX(), m.yloc, Color.gray, this);
 	 			break;
 	 		case FORWARD_WEST:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_WEST.ordinal()][m.picNum], m.xloc-=m.xIncr, m.yloc, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_WEST.ordinal()][m.picNum], m.decrementX(), m.yloc, Color.gray, this);
 	 			break;
 	 		case FORWARD_NORTHEAST:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTHEAST.ordinal()][m.picNum], m.xloc+=m.xIncr, m.yloc-=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTHEAST.ordinal()][m.picNum], m.incrementX(), m.decrementY(), Color.gray, this);
 	 			break;
 	 		case FORWARD_NORTHWEST:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTHWEST.ordinal()][m.picNum], m.xloc-=m.xIncr, m.yloc-=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_NORTHWEST.ordinal()][m.picNum], m.decrementX(), m.decrementY(), Color.gray, this);
 	 			break;
 	 		case FORWARD_SOUTHEAST:
 	 			System.out.println(m.pics[OrcModel.orcAction.FORWARD_SOUTHEAST.ordinal()][m.picNum]);
 	 			//System.out.println(m.xloc+m.xIncr);
 	 			//System.out.println(m.yloc+m.yIncr);
 	 			//System.out.println(this);
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTHEAST.ordinal()][m.picNum], m.xloc+=m.xIncr, m.yloc+=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTHEAST.ordinal()][m.picNum], m.incrementX(), m.incrementY(), Color.gray, this);
 	 			break;
 	 		case FORWARD_SOUTHWEST:
-	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTHWEST.ordinal()][m.picNum], m.xloc-=m.xIncr, m.yloc+=m.yIncr, Color.gray, this);
+	 			g.drawImage(m.pics[OrcModel.orcAction.FORWARD_SOUTHWEST.ordinal()][m.picNum], m.decrementX(), m.incrementY(), Color.gray, this);
 	 			break;
 	 	}
     }

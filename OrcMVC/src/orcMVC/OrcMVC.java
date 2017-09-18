@@ -8,6 +8,7 @@ public class OrcMVC {
 		OrcController c = new OrcController(m,v);
 		
 		for (int i = 0; i < 1000; i++) {
+			c.updateAction(m.currentAction);
 			v.frame.repaint();
 			try {
 				Thread.sleep(100);
