@@ -29,19 +29,4 @@ public class OrcView {
 		frame.setSize(OrcModel.frameWidth, OrcModel.frameHeight);
 		frame.setVisible(true);
 	}
-
-	public void images(OrcModel m, int xStart, int yStart, OrcModel.orcAction initialAction) { // original x location, y location, and initial action
-		m.currentAction = initialAction;
-		m.xloc = xStart;
-		m.yloc = yStart;
-		BufferedImage img;
-		m.pics = new BufferedImage[orcAction.values().length][OrcModel.frameCount];
-		for (OrcModel.orcAction a : orcAction.values()) {
-			for (int i = 0; i < OrcModel.frameCount; i++) {
-				img = OrcController.createImage(a);
-				m.pics[a.ordinal()][i] = img.getSubimage(OrcModel.imgWidth * i, 0, OrcModel.imgWidth,
-						OrcModel.imgHeight);
-			}
-		}
-	}
 }
